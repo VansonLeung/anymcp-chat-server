@@ -1,5 +1,7 @@
 # AnyMCP Server (PoC)
 
+![WhatsApp Image 2025-11-02 at 20 12 16](https://github.com/user-attachments/assets/80d4895c-5a02-490d-8f79-b6d042a92165)
+
 A proof-of-concept application demonstrating an LLM-powered chat interface with tool execution capabilities. Built with React, Vite, and Claude AI, featuring real-time conversation management and simple math operation tools.
 
 ## 📊 Project Overview
