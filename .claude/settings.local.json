@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(node -c:*)",
+      "Bash(chmod:*)",
+      "Bash(node:*)",
+      "Bash(sqlite3:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(timeout 5 node:*)",
+      "Bash(npm start)",
+      "Bash(npm run dev:*)",
+      "Bash(lsof:*)",
+      "Bash(xargs kill:*)",
+      "Bash(curl:*)",
+      "Bash(python3:*)",
+      "Bash(tree:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

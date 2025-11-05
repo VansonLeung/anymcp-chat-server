@@ -1,0 +1,25 @@
+{
+  "name": "poc-anymcp-server",
+  "version": "1.0.0",
+  "description": "AnyMCP server - Proof of concept for LLM-powered chat with tool execution",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.67.0",
+    "@fastify/cors": "^9.0.1",
+    "dotenv": "^16.3.1",
+    "fastify": "^4.26.2",
+    "fastify-plugin": "^4.5.1",
+    "fastmcp": "^3.20.0",
+    "openai": "^4.77.0",
+    "sqlite3": "^5.1.7",
+    "ws": "^8.14.2",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
