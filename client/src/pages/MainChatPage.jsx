@@ -19,10 +19,10 @@ const MainChatPage = () => {
     connect: connectWebSocket,
     disconnect: disconnectWebSocket,
     onRecvMessageRef,
-  } = useWebSocket(webSocketUrl, (message) => {
+  } = useWebSocket(webSocketUrl, async (message) => {
     // Handle math commands
     if (message.type === 'command' && message.command) {
-      const result = executeCommand(message.command, message.params);
+      const result = await executeCommand(message.command, message.params);
       const resp = {
         type: 'response',
         correlationId: message.correlationId,
@@ -33,7 +33,7 @@ const MainChatPage = () => {
       onRecvMessageDebugRef.current && onRecvMessageDebugRef.current("Command result", JSON.stringify(resp, null, 2), 'out');
       sendWebSocketMessage(resp);
     } else if (message.type === 'query' && message.command) {
-      const result = executeCommand(message.command, message.params);
+      const result = await executeCommand(message.command, message.params);
       const resp = {
         type: 'response',
         correlationId: message.correlationId,
