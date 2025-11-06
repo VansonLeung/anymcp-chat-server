@@ -608,9 +608,12 @@ When responding, follow these guidelines:
       }
 
       // Handle tool calls
+      console.log("Handle tool calls: ", delta?.tool_calls);
       if (delta?.tool_calls) {
-        for (const toolCallDelta of delta.tool_calls) {
-          const index = toolCallDelta.index;
+        for (var k in delta.tool_calls) {
+          const toolCallDelta = delta.tool_calls[k];
+          const index = toolCallDelta.index || k;
+          console.log("Tool call delta at index", index, ":", toolCallDelta);
 
           // Initialize tool call at this index if needed
           if (!toolCalls[index]) {
