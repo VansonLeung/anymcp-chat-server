@@ -9,6 +9,7 @@ require('dotenv').config();
 
 const PORT = process.env.PORT || 10052;
 const API_PORT = process.env.API_PORT || 10051;
+const HOST = process.env.HOST || '0.0.0.0';
 const LOG_LEVEL = process.env.LOG_LEVEL || 'info';
 const WEBSOCKET_MAX_CONNECTIONS = parseInt(process.env.WEBSOCKET_MAX_CONNECTIONS) || 100;
 
@@ -28,8 +29,10 @@ const apiServer = http.createServer(async (req, res) => {
 
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin');
+  res.setHeader('Access-Control-Allow-Credentials', 'false');
+  res.setHeader('Access-Control-Max-Age', '86400'); // 24 hours
 
   // Handle preflight
   if (req.method === 'OPTIONS') {
@@ -207,14 +210,21 @@ const apiServer = http.createServer(async (req, res) => {
 });
 
 // Start API server
-apiServer.listen(API_PORT, () => {
-  console.log(`REST API server started on port ${API_PORT}`);
+apiServer.listen(API_PORT, HOST, () => {
+  console.log(`REST API server started on ${HOST}:${API_PORT}`);
 });
 
 // Create WebSocket server (legacy implementation for direct connections)
-const wss = new WebSocket.Server({ port: PORT });
+const wss = new WebSocket.Server({
+  port: PORT,
+  host: HOST,
+  verifyClient: (info, callback) => {
+    // Allow all origins for CORS
+    callback(true);
+  }
+});
 
-console.log(`WebSocket server started on port ${PORT}`);
+console.log(`WebSocket server started on ${HOST}:${PORT}`);
 if (LOG_LEVEL === 'debug') {
   console.log(`Max connections: ${WEBSOCKET_MAX_CONNECTIONS}`);
   console.log(`Log level: ${LOG_LEVEL}`);
