@@ -144,11 +144,13 @@ async function initializeClient() {
   const apiKey = process.env.OPENAI_API_KEY;
   const baseURL = process.env.OPENAI_BASE_URL; // Optional: for compatible APIs
 
-  if (!apiKey) {
-    throw new Error('OPENAI_API_KEY environment variable is required');
+  const config = {};
+
+  if (apiKey) {
+    config.apiKey = apiKey;
+    console.log('OpenAI client configured with API key');
   }
 
-  const config = { apiKey };
   if (baseURL) {
     config.baseURL = baseURL;
     console.log(`OpenAI client configured with custom base URL: ${baseURL}`);
